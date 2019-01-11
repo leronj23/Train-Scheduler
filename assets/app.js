@@ -13,11 +13,19 @@ firebase.initializeApp(config);
 var database = firebase.database();
 
 //  Modal
-$('#exampleModal').on('show.bs.modal', function (event) {
-    var modal = $(this)
+$('#pupupModal').on('show.bs.modal', function (event) {
 
     //  Modal Title
-    modal.find('.modal-title').text('New Train Schedule')
+    $(this).find('.modal-title').text('New Train Schedule')
+})
+
+$('#pupupModal').on('hidden.bs.modal', function (e) {
+    $(this)
+        .find("input")
+        .val('')
+        .end();
+
+        $("#error").html("");
 })
 
 // Add Schedule Button
@@ -29,23 +37,36 @@ $('#addScheduleBtn').on('click', function () {
     let firstTrainTime = $("#first-train-time-input").val().trim();
     let frequency = $("#frequency-input").val().trim();
 
-    // Creates local "temporary" object for holding employee data
-    let newTrainSchedule = {
-        trainName: trainName,
-        destination: dest,
-        firstTrainTime: firstTrainTime,
-        frequency: frequency
-    };
+    // Check if any fields are blank
+    let array = [trainName, dest, firstTrainTime, frequency];
+    function isFormFilledOut(currentValue) {
+        return currentValue !== '';
+    }
+    if (array.every(isFormFilledOut)) {
 
-    // Uploads train data to the database
-    database.ref().push(newTrainSchedule);
+        // Creates local "temporary" object for holding employee data
+        let newTrainSchedule = {
+            trainName: trainName,
+            destination: dest,
+            firstTrainTime: firstTrainTime,
+            frequency: frequency
+        };
 
-    // Clears all of the text-boxes
-    $("#train-name-input").val("");
-    $("#destination-input").val("");
-    $("#first-train-time-input").val("");
-    $("#frequency-input").val("");
+        // Uploads train data to the database
+        database.ref().push(newTrainSchedule);
+
+        // Clears all of the text-boxes
+        $("#train-name-input").val("");
+        $("#destination-input").val("");
+        $("#first-train-time-input").val("");
+        $("#frequency-input").val("");
+    }
+    else {
+
+        $("#error").html("All fields are required!");
+    }
 });
+
 
 // 3. Create Firebase event for adding employee to the database and a row in the html when a user adds an entry
 database.ref().on("child_added", function (childSnapshot) {
@@ -59,7 +80,7 @@ database.ref().on("child_added", function (childSnapshot) {
 
     // First Time (pushed back 1 year to make sure it comes before current time)
     var firstTimeConverted = moment(firstTrainTime, "HH:mm").subtract(1, "years");
-    console.log("firstTimeConverted",firstTimeConverted);
+    console.log("firstTimeConverted", firstTimeConverted);
 
     // Current Time
     var currentTime = moment();

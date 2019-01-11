@@ -80,28 +80,29 @@
                             </div>
                             <div class="modal-body">
                                 <form>
-                                    <form>
-                                        <div class="form-group">
-                                            <label for="train-name-input">Train Name:</label>
-                                            <input class="form-control" id="train-name-input" type="text">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="destination-input">Destination:</label>
-                                            <input class="form-control" id="destination-input" type="text">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="first-train-time-input">First Train Time (HH:mm - military
-                                                time):</label>
-                                            <input class="form-control" id="first-train-time-input" type="text">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="frequency-input">Frequency:</label>
-                                            <input class="form-control" id="frequency-input" type="text">
-                                        </div>
-                                    </form>
+                                    <div class="form-group">
+                                        <label for="train-name-input">Train Name:</label>
+                                        <input class="form-control" id="train-name-input" type="text">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="destination-input">Destination:</label>
+                                        <input class="form-control" id="destination-input" type="text">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="first-train-time-input">First Train Time (HH:mm - military
+                                            time):</label>
+                                        <input class="form-control" id="first-train-time-input" type="text">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="frequency-input">Frequency:</label>
+                                        <input class="form-control" id="frequency-input" type="text">
+                                    </div>
+                                </form>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" id="addScheduleBtn" data-dismiss="modal">Add
+
+                                <label class="text-danger" style="margin-right: 20px"><span id="error"></span></label>
+                                <button type="button" class="btn btn-primary" id="addScheduleBtn">Add
                                     schedule</button>
                             </div>
                         </div>
